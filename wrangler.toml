@@ -1,0 +1,21 @@
+
+
+
+name = "gooblagoon-evidence-worker"
+main = "worker.js"
+compatibility_date = "2025-09-03"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "gooblagoon-db"
+database_id = "884650c5-b328-456f-b00c-9589518ac935"
+
+[[kv_namespaces]]
+binding = "IMAGES"
+id = "e754d7ece40d4e45aedee8bb0d3a9980"
+
+[triggers]
+crons = ["0 * * * *"]
+
+[observability]
+enabled = true

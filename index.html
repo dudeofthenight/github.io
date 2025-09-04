@@ -1,0 +1,280 @@
+<!doctype html>
+<html 
+lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Official Gooblagoon Incident Log</title>
+  <meta name="description" content="The Full Fledged Investigation of the Gooblagoon Water Park, recording crimes, incidents, and anomalies." />
+  <meta property="og:title" content="Official Gooblagoon Incident Log" />
+  <meta property="og:description" content="The Full Fledged Investigation of the Gooblagoon Water Park, recording crimes, incidents, and anomalies." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0ea5e9" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230ea5e9'/%3E%3Ctext x='50' y='58' font-size='44' text-anchor='middle' fill='white' font-family='system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif'%3EGE%3C/text%3E%3C/svg%3E" />
+  <style>
+    /* ====== Design Tokens ====== */
+    :root {
+      --bg: #0b0c0f;            /* page background */
+      --surface: #111319;       /* card/nav background */
+      --text: #e8eef7;          /* primary text */
+      --muted: #b9c3d1;         /* secondary text */
+      --ring: #334155;          /* borders */
+      --brand: #0ea5e9;         /* brand color */
+      --accent: #22c55e;        /* accent color */
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.3);
+      --maxw: 1100px;
+    }
+    @media (prefers-color-scheme: light) {
+      :root { --bg:#f7f9fc; --surface:#ffffff; --text:#0b1220; --muted:#516072; --ring:#d9e0ea; }
+    }
+
+    /* ====== Base ====== */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+    /* ====== Header & Nav ====== */
+    header { position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(150%) blur(8px); background: color-mix(in srgb, var(--surface) 85%, transparent); border-bottom: 1px solid var(--ring); }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: .3px; }
+    .logo-badge { width: 36px; height: 36px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(135deg, var(--brand), #38bdf8); box-shadow: var(--shadow); color: white; font-weight: 900; }
+    nav ul { list-style: none; display: flex; gap: 20px; padding: 0; margin: 0; }
+    nav a { color: var(--text); opacity: .85; font-weight: 600; }
+
+    /* ====== Hero ====== */
+    .hero { position: relative; min-height: 70vh; display: grid; align-items: center; }
+    .hero::before { content: ""; position: absolute; inset: 0; background: url('images/hero.jpg') center/cover no-repeat fixed; filter: grayscale(.1); }
+    .hero::after { content: ""; position: absolute; inset: 0; background: radial-gradient(1000px 500px at 70% -10%, rgba(14,165,233,.25), transparent 60%), rgba(0,0,0,.45); }
+    .hero > .container { position: relative; z-index: 1; padding: 70px 20px; }
+    .kicker { color: var(--brand); font-weight: 800; text-transform: uppercase; letter-spacing: .15em; font-size: .85rem; }
+    h1 { font-size: clamp(2.2rem, 2.3rem + 1.5vw, 3.4rem); line-height: 1.12; margin: 10px 0 16px; }
+    .lead { color: var(--muted); font-size: 1.05rem; max-width: 60ch; }
+    .cta-row { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; border-radius: var(--radius); border: 1px solid var(--ring); font-weight: 700; }
+    .btn-primary { background: linear-gradient(135deg, var(--brand), #38bdf8); color: white; border: none; box-shadow: var(--shadow); }
+    .btn-ghost { background: transparent; color: var(--text); }
+
+    /* ====== Card Grid ====== */
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 34px; }
+    .card { background: var(--surface); border: 1px solid var(--ring); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+    .card h3 { margin: 6px 0 8px; font-size: 1.1rem; }
+    .eyebrow { font-size: .85rem; color: var(--brand); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+
+    /* ====== Content Sections ====== */
+    section { padding: 56px 0; }
+    .section-title { font-size: clamp(1.6rem, 1.4rem + 1vw, 2.2rem); margin: 0 0 14px; }
+    .muted { color: var(--muted); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+
+    /* ====== Gauge Bar ====== */
+    .meter { height: 8px; border-radius: 999px; background: var(--ring); overflow: hidden; }
+    .meter > .meter-bar { height: 100%; background: linear-gradient(90deg, var(--brand), #38bdf8); }
+    .meter-wrap { display: grid; gap: 6px; margin: 8px 0 10px; }
+    .meter-label { font-size: .85rem; color: var(--muted); }
+
+    /* ====== Footer ====== */
+    footer { border-top: 1px solid var(--ring); padding: 24px 0; color: var(--muted); font-size: .85rem; }
+
+    /* ====== Responsive ====== */
+    @media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } .grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { nav ul { display:none; } .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo"><div class="logo-badge" aria-hidden="true">GE</div> Gooblagoon Evidence</div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#sightings">Submit</a></li>
+          <li><a href="#view">View Sightings</a></li>
+          <li><a href="#caseoh">Warning</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" aria-label="Hero">
+      <div class="container">
+        <p class="kicker">Investigation Unit</p>
+        <h1>Official Gooblagoon Incident Log</h1>
+        <p class="lead">The Full Fledged Investigation of the Gooblagoon Water Park, recording crimes, incidents, and anomalies.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#submit">Submit Evidence or Anomaly</a>
+          <a class="btn btn-ghost" href="#about">Learn about the Investigation.</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About / quick info -->
+    <section id="about">
+      <div class="container two-col">
+        <div>
+          <h2 class="section-title">About this investigation</h2>
+          <p class="muted">Investigation on the suspicious waterpark, "GoobLagoon". Report any unusual sightings, crimes, or anomalies related to the park here to assist us in gathering evidence. The GoobLagoon legal team makes it impossible for us to find out by ourselves, or sneak into the park, so record your evidence here.</p>
+        </div>
+        <div class="card">
+          <h3>How it works</h3>
+          <ol class="muted">
+            <li>Submit your sighting below (1 photo max, 1MB).</li>
+            <li>We review and approve credible reports.</li>
+            <li>Newest approved sightings appear first.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sightings -->
+    <section id="sightings">
+      <div class="container">
+        <h2 class="section-title">Sightings — Public Submissions</h2>
+        <p class="muted">All submissions are reviewed before publication.</p>
+
+        <form id="sighting-form" class="card" enctype="multipart/form-data">
+          <a id="submit" style="position:relative; top:-80px"></a>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <label>Title<br><input name="title" required maxlength="120" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--ring);background:var(--surface);color:var(--text)"></label>
+            <label>Name (optional)<br><input name="name" placeholder="Anonymous" maxlength="80" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--ring);background:var(--surface);color:var(--text)"></label>
+          </div>
+          <label style="display:block;margin-top:12px">Description<br>
+            <textarea name="description" required rows="5" maxlength="5000" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--ring);background:var(--surface);color:var(--text)"></textarea>
+          </label>
+          <div class="grid" style="grid-template-columns:1fr 1fr 1fr;margin-top:12px">
+            <label>Contact Email (private)<br><input type="email" name="email" maxlength="120" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--ring);background:var(--surface);color:var(--text)"></label>
+            <label>Suspicious Meter: <span id="meterVal">5</span>/10<br>
+              <input type="range" name="suspicious_meter" min="1" max="10" value="5" oninput="document.getElementById('meterVal').textContent=this.value" style="width:100%">
+            </label>
+            <label>Photo (optional, 1MB max)<br>
+              <input type="file" name="photos" accept="image/png,image/jpeg,image/webp">
+            </label>
+          </div>
+          <label style="display:block;margin-top:10px">
+            <input type="checkbox" name="consent" required> I confirm this is my own experience/evidence and agree this may be published.
+          </label>
+          <div class="cta-row">
+            <button class="btn btn-primary" type="submit">Submit Sighting</button>
+            <span id="formStatus" class="muted" role="status" aria-live="polite"></span>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- View Sightings separate area -->
+    <section id="view">
+      <div class="container">
+        <h2 class="section-title">View Sightings</h2>
+        <p class="muted">Newest approved reports appear first.</p>
+        <div id="sightings-list" class="grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- CaseOh warning -->
+    <section id="caseoh">
+      <div class="container two-col" style="align-items:center">
+        <div class="card">
+          <img src="images/caseoh.jpg" alt="CaseOh, do not approach" style="border-radius:12px">
+          <p class="muted" style="margin-top:8px;text-align:center"><strong>Stay away from this man.</strong></p>
+        </div>
+        <div>
+          <h2 class="section-title">Advisory</h2>
+          <p class="muted">If you encounter unusual activity, remain calm, document it responsibly, and file a report above. This advisory will be updated as the investigation proceeds.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact / CTA -->
+    <section id="contact">
+      <div class="container two-col" style="align-items:center">
+        <div>
+          <h2 class="section-title">Contact</h2>
+          <p class="muted">Questions about the investigation? Find me on YouTube: <a href="https://www.youtube.com/@deyLune" target="_blank" rel="noopener">@deyLune</a>.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#submit">Submit Evidence or Anomaly</a>
+            <a class="btn btn-ghost" href="#sightings">View Latest Sightings</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Notes</h3>
+          <p class="muted">We approve credible, entertaining, or high-suspicion reports. Keep image sizes small (&lt; 1MB). No doxxing or hate.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <small>disclaimer: this is a fan-made site, and in no way official. if caseoh wants it to be taken down, he can say so on stream. :)</small>
+    </div>
+  </footer>
+
+  <script>
+    // === Configure your API base URL ===
+    const API_BASE = 'https://gooblagoon-evidence-worker.gooblagoon.workers.dev';
+
+
+
+    // Render approved sightings
+    async function renderSightings(){
+      try {
+        const r = await fetch(`${API_BASE}/api/sightings?limit=30`);
+        const { items } = await r.json();
+        const wrap = document.getElementById('sightings-list');
+        wrap.innerHTML = '';
+        for (const s of items){
+          const card = document.createElement('article');
+          card.className = 'card';
+          const date = new Date(s.approved_at || s.submitted_at).toLocaleDateString();
+          const imgHtml = s.photos && s.photos[0] ? `<img alt="Sighting photo" src="${API_BASE}/api/image/${encodeURIComponent(s.photos[0])}" style="border-radius:12px;margin-bottom:8px">` : '';
+          const pct = Math.round((s.suspicious_meter / 10) * 100);
+          const meterHtml = `
+            <div class="meter-wrap">
+              <div class="meter"><div class="meter-bar" style="width:${pct}%"></div></div>
+              <div class="meter-label">Suspicious Meter: ${s.suspicious_meter}/10</div>
+            </div>`;
+          card.innerHTML = `${imgHtml}
+            ${meterHtml}
+            <h3>${escapeHtml(s.title)}</h3>
+            <p class="muted" style="white-space:pre-wrap">${escapeHtml(s.description)}</p>
+            <p class="muted"><strong>${escapeHtml(s.name || 'Anonymous')}</strong> • ${date}</p>`;
+          wrap.appendChild(card);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function escapeHtml(s){return (s||'').replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))}
+
+    // Handle form submit
+    document.getElementById('sighting-form')?.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const status = document.getElementById('formStatus');
+      status.textContent = 'Submitting…';
+      const fd = new FormData(e.target);
+      try{
+        const r = await fetch(`${API_BASE}/api/sightings`, { method:'POST', body: fd });
+        if(!r.ok){ const er = await r.json().catch(()=>({error:'Error'})); throw new Error(er.error || 'Submission failed'); }
+        status.textContent = 'Thanks! Your sighting is pending approval.';
+        e.target.reset();
+        document.getElementById('meterVal').textContent = '5';
+      }catch(err){ status.textContent = err.message; }
+    });
+
+    renderSightings();
+  </script>
+</body>
+</html>
